@@ -31,8 +31,8 @@ $router->group([
     $router->post('user/setAndSendCode', 'UserController@setAndSendCode');
     $router->post('user/verifyCode', 'UserController@verifyCode');
     $router->patch('user/resetPassword', 'UserController@updatePassword');
-
-    $router->get('db/{username}', 'UserController@getDB');
+    
+    $router->get('db/{id}/{dbname}', 'UserController@getDB');
 
 });
 
@@ -49,5 +49,6 @@ $router->group([
 
     //USER
     $router->patch('user/confirm', 'UserController@confirm');
+    $router->patch('user/setDB', 'UserController@setDB');
 
 });

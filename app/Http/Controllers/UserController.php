@@ -27,6 +27,23 @@ class UserController extends Controller {
         return $randomString;
     }
 
+    public function getDB($id, $dbname) {
+        $user = User::where('dbname', $dbname)->find($id);
+        if($user) {
+            return response()->json(json_decode($user->json)); 
+        } else {
+            return response()->json(['frontendMessage' => 'Database not found.'], 404);
+        }
+    }
+
+    public function setDB(Request $request) {
+        $user = auth()->user();
+        $user->json = $request->json;
+        $user->save();
+        return response()->json(['message' => 'success'], 200);
+    }
+
+
     public function setAndSendCode(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|exists:users,email'
@@ -152,6 +169,7 @@ class UserController extends Controller {
         $user = new User();
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->json = '{"site_title":"Website Name","h1":"We Do Things Really Good","h2":"This is how we work, and why you should choose us, and more fun nuggets."}';
         $user->dbname = self::generateRandomString(40);
         $user->code = strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9));
         $user->save();
