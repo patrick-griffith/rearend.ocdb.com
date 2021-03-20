@@ -185,7 +185,7 @@ class UserController extends Controller {
         $user = new User();
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->json = '{"site_title":"Website Name","h1":"We Do Things Really Good","h2":"This is how we work, and why you should choose us, and more fun nuggets."}';
+        $user->json = '{"site_title":{"type":"string","value":"Website Name"},"h1":{"type":"string","value":"A Test"},"h2":{"type":"string","value":"This is how we work, and why you should choose us, and more fun nuggets."},"description":{"type":"text","value":"Alright, well, this is a description."}}';
         $user->dbname = self::generateRandomString(40);
         $user->code = strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9)) . strval(rand(0,9));
         $user->save();
