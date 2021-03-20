@@ -50,5 +50,7 @@ $router->group([
     //USER
     $router->patch('user/confirm', 'UserController@confirm');
     $router->patch('user/setDB', 'UserController@setDB');
+    $router->patch('user/setPro', 'UserController@setPro');
+    $router->patch('user/setSchemaMode/{mode}', 'UserController@setSchemaMode');
 
 });

@@ -27,6 +27,8 @@ class UserController extends Controller {
         return $randomString;
     }
 
+
+
     public function getDB($id, $dbname) {
         $user = User::where('dbname', $dbname)->find($id);
         if($user) {
@@ -36,9 +38,23 @@ class UserController extends Controller {
         }
     }
 
+    public function setPro() {
+        $user = auth()->user();
+        $user->pro = 1;
+        $user->save();
+        return response()->json(['message' => 'success'], 200);
+    }
+
     public function setDB(Request $request) {
         $user = auth()->user();
         $user->json = $request->json;
+        $user->save();
+        return response()->json(['message' => 'success'], 200);
+    }
+
+    public function setSchemaMode($mode) {
+        $user = auth()->user();
+        $user->schemaMode = $mode;
         $user->save();
         return response()->json(['message' => 'success'], 200);
     }
